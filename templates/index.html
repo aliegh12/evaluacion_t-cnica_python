@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>aliegh mosquera rueda</title>
+    <!-- BOOTSTRAP 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css">
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro&family=Righteous&display=swap" rel="stylesheet">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+</head>
+<body>
+
+    <main class="container p-4">
+        <h3 class="display-4 text-align title mt-4">REGISTRO</h3>
+    <div class="card">
+        <div class="card-header">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}                 
+
+            
+            <form class="text-align title" action="/create-user" method="POST">
+                <div>
+                    <div>
+                        <label for="Nombre">Escriba su nombre:</label> 
+                        <input type="text" name="fullname" placeholder ="Escriba su nombre" autofocus required />
+    
+                    </div>
+                    <div>
+                        <label for="email">Ingrese su email:</label>
+                        <input type="email"  name="email" placeholder ="Escribe su correo electronico" autofocus required />  
+                        
+                    </div>
+                    <div>
+                        <label for="ciudad">Ciudad en que reside: </label>
+                        <input type="text" name="city" placeholder ="Escribe la ciudad en que reside" autofocus required />      
+                       
+                    </div>
+                    <div>
+                        <br/>
+                        <button type="submit" class="btn btn-primary "> Envíar </button>
+                    </div>                   
+                    
+                </div>   
+                
+            </form>
+
+        </div>
+
+    </div>         
+
+
+    <div class="col-md-7">
+        <table class="table table-striped table-hover table-bordered table-sm bg-white">
+          <thead class="text-align title">
+            <tr>
+              <td>id</td>
+              <td>nombre</td>
+              <td>email</td>
+              <td>ciudad</td>
+              <td>Operations</td>
+            </tr>
+          </thead>
+          <tbody class="text-align title">
+            {% for usuario in Usuarios %}
+            <tr>
+              <td>{{usuario.id}}</td> 
+              <td>{{usuario.fullname}}</td>
+              <td>{{usuario.email}}</td> 
+              <td>{{usuario.city}}</td>   
+              <td>
+                <a href="{{url_for('delete', id=usuario.id)}}" class="btn btn-danger btn-delete">eliminar</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+    </main>
+
+
+</body>
+</html>
